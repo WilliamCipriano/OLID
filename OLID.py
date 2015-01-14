@@ -26,6 +26,17 @@ def createuser():
         time.sleep(60)
         sys.exit(False)
 
+def deleteattachedclaims():
+    print "Claim Delete Wizard"
+    procedurenumber = raw_input('Procedure Number:')
+    confirm = raw_input('Are you sure you want to delete all claims attached to ' + str(procedurenumber) + '? Y/N')
+    if (confirm == 'Y' or confirm == 'y'):
+        if (OpenDental.deleteattachedclaims(procedurenumber)):
+            print "claim deleted."
+        else:
+            print "claim deletion failed."
+
+
 
 print "OpenDental Login Identity Deceptor (OLID) - By: Will Cipriano"
 print "Attempting to connect to database... Please Wait"
@@ -38,12 +49,16 @@ else:
 
 print "What would you like to do today?"
 print "1: Create User"
+print "2: Delete Attached Claims"
 selected = False
 while (selected == False):
     selection = raw_input('?:')
     print selection
     if (selection == '1'):
         createuser()
+        selected = True
+    elif (selection == '2'):
+        deleteattachedclaims()
         selected = True
     else:
         print "invalid input!"
