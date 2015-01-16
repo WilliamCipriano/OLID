@@ -100,11 +100,34 @@ def deleteattachedclaims():
         else:
             print "claim deletion failed."
 
+def patientsearch():
+    x = True
+    while x:
+        search = raw_input("Patient Search: ")
+        patients = OpenDental.patientnamesearch(search)
+        if patients == False:
+            print 'Patient not found!'
+        else:
+            Y = 0
+            while Y < len(patients):
+                patientdata = OpenDental.GetPatientDetails(patients[Y]['PatNum'])
+                if patientdata['LastName'] == False:
+                    patientdata['LastName'] = 'None'
+                if patientdata['FirstName'] == False:
+                    patientdata['FirstName'] = 'None'
+                try:
+                    print str(patients[Y]['PatNum']) + ": " + str(patientdata['FirstName']) + " " + str(patientdata['LastName'])
+                except Exception as ex:
+                    print ex
+                Y += 1
+
+
 
 manual()
 print "What would you like to do today?"
 print "1: Create User"
 print "2: Delete Attached Claims"
+print "3: Patient Search"
 selected = False
 while (selected == False):
     selection = raw_input('?:')
@@ -114,6 +137,9 @@ while (selected == False):
         selected = True
     elif (selection == '2'):
         deleteattachedclaims()
+        selected = True
+    elif (selection == '3'):
+        patientsearch()
         selected = True
     else:
         print "invalid input!"
