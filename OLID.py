@@ -2,6 +2,8 @@ import OpenDental
 import time
 import sys
 
+#OpenDental Login Identity Deceptor, by Will Cipriano
+
 def manual():
 
     def yorn(data):
